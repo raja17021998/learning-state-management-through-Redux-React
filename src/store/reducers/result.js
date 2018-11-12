@@ -1,7 +1,7 @@
-import * as actionTypes from './actions';
+import * as actionTypes from '../actions';
 
 const initialState={
-    counter: 0,
+    
     results: []
 
 }
@@ -9,41 +9,15 @@ const reducer= (state= initialState, action) => {
 
     switch(action.type){
 
-        case actionTypes.INCREMENT:
-        // const newState= Object.assign({},state);
-        // newState.counter= state.counter+1
-        // return newState;
-
-
-        // The above thing is not used because if we do so, we are mutating the old state here. Instead what we do is, we copy the old state. We use Object.assign({},state) method, which copies the contents of the old object and clones it into a new object, which is technically a different object. Now here if you change any property then you are doing it in the new state and not in the old state. There you can use the spread operator to distribute the old state's properties in the new state. 
-
-        return{
-            ...state,
-            counter: state.counter+1
-        }
-
-
-       
-        case actionTypes.DECREMENT:
-        return{
-            ...state,
-            counter: state.counter-1
-        }
-        case actionTypes.ADD:
-        return{
-            ...state,
-            counter: state.counter+action.value
-        }
-        case actionTypes.SUBTRACT:
-        return{
-            ...state,
-            counter: state.counter-action.value
-        }
+ 
         case actionTypes.STORE_RESULT:
         return{
             ...state,
-            results: state.results.concat({id: new Date(), value: state.counter})
+            // results: state.results.concat({id: new Date(), value: state.counter}),
             // Concat is the immutable way of manipulating the array & don't use push() function
+
+            // Now since we have splitted our reducers, according to code logics, we need to change the way our results get executed
+            results: state.results.concat({id: new Date(), value: action.result})
         }
         case actionTypes.DELETE_RESULT:
 

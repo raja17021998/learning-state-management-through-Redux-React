@@ -40,7 +40,7 @@ class Counter extends Component {
                 <CounterControl label="Substract" clicked= 
                 {this.props.onSubstractCounter}/>
                 <hr />
-                <button onClick={this.props.onStoreResult}>Store Result</button>
+                <button onClick={()=>this.props.onStoreResult(this.props.ctr)}>Store Result</button>
                 {/* The idea is when we click store result,then I simply add my current counter value to result list here. For that we will dispatch an action whenever the above button is clicked and then push this new result in the result array, update the array with it and take the current counter as input. Additionally if we click one of these results i.e. one of these list items, we want to remove it from the array */}
                 <ul>
                     {this.props.storedResults.map(strResult =>(
@@ -55,9 +55,9 @@ class Counter extends Component {
 
 const mapStateToProps = state => {
     return {
-        ctr: state.counter,
+        ctr: state.ctr.counter,
         // This state is actually the initialState in reducer.js (Give me the value of counter of global state managed by redux, and give it to me in the form of a property caled as ctr.)
-        storedResults: state.results
+        storedResults: state.res.results
     };
 };
 
@@ -67,7 +67,7 @@ const mapDispatchToProps = dispatch => {
         onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
         onAddCounter: () => dispatch({type: actionTypes.ADD,value:10}),
         onSubstractCounter: () => dispatch({type: actionTypes.SUBTRACT,value:10}),
-        onStoreResult: () => dispatch({type: actionTypes.STORE_RESULT}),
+        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT,result:result}),
         onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT,resultElId:id})
         // You pass an id argument, and send it along with action
         // We dont need to pass payLoad because since ctr part of our application state, we will have access to the reducer later. 
