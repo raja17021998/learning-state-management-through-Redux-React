@@ -5,7 +5,16 @@ import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
 //import reducer from '../../store/reducer';
 
-import * as actionTypes from '../../store/actions'; 
+// We are using actionCreators
+//import * as actionTypes from '../../store/actions/actions';
+ 
+// import { increment, delete_result } from '../../store/actions/actions';
+// Now we import everything as actionCreators
+import * as actionCreators from '../../store/actions/actions';
+
+
+// increment is a function
+
 
 class Counter extends Component {
     state = {
@@ -63,12 +72,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        onAddCounter: () => dispatch({type: actionTypes.ADD,value:10}),
-        onSubstractCounter: () => dispatch({type: actionTypes.SUBTRACT,value:10}),
-        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT,result:result}),
-        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT,resultElId:id})
+        onIncrementCounter: () => dispatch(actionCreators.increment()),
+        onDecrementCounter: () => dispatch(actionCreators.decrement()),
+        onAddCounter: () => dispatch(actionCreators.add(10)),
+        onSubstractCounter: () => dispatch(actionCreators.subtract(10)),
+        onStoreResult: (result) => dispatch(actionCreators.storeResult(result)),
+        onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id))
         // You pass an id argument, and send it along with action
         // We dont need to pass payLoad because since ctr part of our application state, we will have access to the reducer later. 
 
